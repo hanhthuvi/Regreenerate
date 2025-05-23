@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Regreenerate</title>
+  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+    integrity="sha512-MV7K8+y+gLIBOVD591QIYicR65iaqukzvf/nwas FØnqhPay5w/91JmVM2hMDcnK10nMGCdVK+iQrJ71zPJQd1w==" I
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+    integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+  </style>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Xanh+Mono:ital@0;1&display=swap');
+  </style>
+  <link rel="icon" href="assets/logo.png">
+
+</head>
+
+<body>
+  <nav>
+    <div class="nav-left">
+      <a href="index.html">
+        <img src="assets/logo.png" alt="Logo" class="logo" />
+      </a>
+      <span class="project-name"></span>
+    </div>
+
+    <div class="nav-right">
+      <input type="checkbox" id="hamburger-toggle" hidden />
+
+      <label for="hamburger-toggle" class="hamburger">
+        <img src="assets/hamburger.png" alt="Menu" />
+      </label>
+
+      <div class="dropdown-menu">
+        <a href="index.html">Home</a>
+        <a href="page4.html">About</a>
+        <a href="page5.html">Replant</a>
+        <a href="page6.html">Revive</a>
+        <a href="page7.html">Restore</a>
+        <a href="page8.html">Showcase</a>
+
+      </div>
+    </div>
+  </nav>
+
+  <div class="page-4">
+    <!-- Left-side caption image -->
+    <img src="assets/captionpage4.png" alt="Caption Page 4" class="overlay-img" />
+
+    <!-- Icons with manually controlled positions -->
+    <div class="icon-with-popup" style="top: 20vh; left: 65vw;">
+      <img src="assets/icon.png" class="popup-icon" />
+      <div class="popup"><img src="assets/popup1.png" /></div>
+    </div>
+
+    <div class="icon-with-popup" style="top: 40vh; left: 40vw;">
+      <img src="assets/icon.png" class="popup-icon" />
+      <div class="popup"><img src="assets/popup2.png" /></div>
+    </div>
+
+    <div class="icon-with-popup" style="top: 70vh; left:20vw;">
+      <img src="assets/icon.png" class="popup-icon" />
+      <div class="popup"><img src="assets/popup3.png" /></div>
+    </div>
+
+    <div class="icon-with-popup" style="top: 83vh; left: 55vw;">
+      <img src="assets/icon.png" class="popup-icon" />
+      <div class="popup"><img src="assets/popup4.png" /></div>
+    </div>
+
+    <div class="icon-with-popup" style="top: 65vh; left: 80vw;">
+      <img src="assets/icon.png" class="popup-icon" />
+      <div class="popup"><img src="assets/popup5.png" /></div>
+    </div>
+  </div>
+
+  <div class="page-4-arrow" id="to-page-5" style="cursor: pointer;">
+    <img src="assets/arrow.png" alt="Next Section Arrow" />
+  </div>
+<canvas id="trail-canvas"></canvas>
+
+  <script>
+
+  const canvas = document.getElementById("trail-canvas");
+  const ctx = canvas.getContext("2d");
+
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  canvas.style.position = "fixed";
+  canvas.style.top = 0;
+  canvas.style.left = 0;
+  canvas.style.pointerEvents = "none";
+  canvas.style.zIndex = 9999;
+
+  let width = canvas.width;
+  let height = canvas.height;
+
+  window.addEventListener("resize", () => {
+    width = window.innerWidth;
+    height = window.innerHeight;
+    canvas.width = width;
+    canvas.height = height;
+  });
+
+  let trail = [];
+
+  document.addEventListener("mousemove", (e) => {
+    const x = e.clientX;
+    const y = e.clientY;
+    const timestamp = Date.now();
+    trail.push({ x, y, timestamp });
+  });
+
+  function animate() {
+    const now = Date.now();
+    // Clear canvas each frame (but NOT fill with color)
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    ctx.strokeStyle = "red";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+
+    for (let i = 0; i < trail.length - 1; i++) {
+      const p1 = trail[i];
+      const p2 = trail[i + 1];
+      const age = now - p1.timestamp;
+
+        if (age > 400) {
+        trail.splice(i, 1);
+        i--;
+        continue;
+      }
+
+      const opacity = 1 - age / 400;
+      ctx.strokeStyle = `rgba(40, 136, 33, ${opacity})`;
+      ctx.beginPath();
+      ctx.moveTo(p1.x, p1.y);
+      ctx.lineTo(p2.x, p2.y);
+      ctx.stroke();
+    }
+
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+    document.getElementById("to-page-5").addEventListener("click", function () {
+      window.location.href = "page5.html";
+    });
+  </script>
+
+
+</body>
+
+</html>
