@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Regreenerate</title>
+  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+    integrity="sha512-MV7K8+y+gLIBOVD591QIYicR65iaqukzvf/nwas FØnqhPay5w/91JmVM2hMDcnK10nMGCdVK+iQrJ71zPJQd1w==" I
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+    integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+  </style>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Xanh+Mono:ital@0;1&display=swap');
+  </style>
+  <link rel="icon" href="assets/logo.png">
+
+</head>
+
+<body>
+  <nav>
+    <div class="nav-left">
+      <a href="index.html">
+        <img src="assets/logo.png" alt="Logo" class="logo" />
+      </a>
+      <span class="project-name"></span>
+    </div>
+
+    <div class="nav-right">
+      <input type="checkbox" id="hamburger-toggle" hidden />
+
+      <label for="hamburger-toggle" class="hamburger">
+        <img src="assets/hamburger.png" alt="Menu" />
+      </label>
+
+      <div class="dropdown-menu">
+        <a href="index.html">Home</a>
+        <a href="page4.html">About</a>
+        <a href="page5.html">Replant</a>
+        <a href="page6.html">Revive</a>
+        <a href="page7.html">Restore</a>
+        <a href="page8.html">Showcase</a>
+
+      </div>
+    </div>
+  </nav>
+
+
+
+
+  <main>
+    <section class="page page-1">
+      <img src="assets/textlanding.png" alt="Regreenerate Logo" class="landing-image" />
+    </section>
+
+    <section class="page page-2">
+      <div class="quote-placeholder">
+        <img src="assets/quote.png" alt="Quote Image" class="quote-image" />
+      </div>
+    </section>
+
+    <div class="page page-3">
+      <img src="assets/calltoactionpage.png" class="page-3-img" alt="Page 3 Image" />
+      <div class="page-3-arrow" id="to-page-4" style="cursor: pointer;">
+        <img src="assets/arrow.png" alt="Next Section Arrow" />
+      </div>
+      <script>
+        document.getElementById("to-page-4").addEventListener("click", function () {
+          window.location.href = "page4.html";
+        });
+      </script>
+    </div>
+  </main>
+
+  <footer id="footer">
+    <div class="ticker">
+      <div class="ticker-track">
+        <div class="ticker-text">
+          Julien, Mort, and Maurice. Nguyen Tuong Lan Hanh_S3956244. Nguyen
+          Ngoc Truc Ly_S3978782. Dinh Xuan Son Tung_S4053857. Julien, Mort,
+          and Maurice. Nguyen Tuong Lan Hanh_S3956244. Nguyen Ngoc Truc
+          Ly_S3978782. Dinh Xuan Son Tung_S4053857. Julien, Mort, and Maurice.
+          Nguyen Tuong Lan Hanh_S3956244. Nguyen Ngoc Truc Ly_S3978782. Dinh
+          Xuan Son Tung_S4053857. Julien, Mort, and Maurice. Nguyen Tuong Lan
+          Hanh_S3956244. Nguyen Ngoc Truc Ly_S3978782. Dinh Xuan Son
+          Tung_S4053857.
+        </div>
+      </div>
+    </div>
+  </footer>
+
+<canvas id="trail-canvas"></canvas>
+
+  <script>
+
+  const canvas = document.getElementById("trail-canvas");
+  const ctx = canvas.getContext("2d");
+
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  canvas.style.position = "fixed";
+  canvas.style.top = 0;
+  canvas.style.left = 0;
+  canvas.style.pointerEvents = "none";
+  canvas.style.zIndex = 9999;
+
+  let width = canvas.width;
+  let height = canvas.height;
+
+  window.addEventListener("resize", () => {
+    width = window.innerWidth;
+    height = window.innerHeight;
+    canvas.width = width;
+    canvas.height = height;
+  });
+
+  let trail = [];
+
+  document.addEventListener("mousemove", (e) => {
+    const x = e.clientX;
+    const y = e.clientY;
+    const timestamp = Date.now();
+    trail.push({ x, y, timestamp });
+  });
+
+  function animate() {
+    const now = Date.now();
+    // Clear canvas each frame (but NOT fill with color)
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    ctx.strokeStyle = "red";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+
+    for (let i = 0; i < trail.length - 1; i++) {
+      const p1 = trail[i];
+      const p2 = trail[i + 1];
+      const age = now - p1.timestamp;
+
+      if (age > 400) {
+        trail.splice(i, 1);
+        i--;
+        continue;
+      }
+
+      const opacity = 1 - age / 400;
+      ctx.strokeStyle = `rgba(40, 136, 33, ${opacity})`;
+      ctx.beginPath();
+      ctx.moveTo(p1.x, p1.y);
+      ctx.lineTo(p2.x, p2.y);
+      ctx.stroke();
+    }
+
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+
+    document.getElementById("to-page-4").addEventListener("click", () => {
+      window.location.href = "page4.html";
+    });
+  </script>
+</body>
+
+</html>

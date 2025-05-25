@@ -1,0 +1,414 @@
+/* RESET & BASE STYLES */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: auto;
+  font-family: Rubik, sans-serif;
+  background-color: "#004406";
+  color: "#004406";
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+/* NAV */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2.5rem 3.5rem;
+  background-color: transparent;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo {
+  height: 6vw;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+}
+
+#hamburger-toggle {
+  display: none;
+}
+
+.hamburger img {
+  height: 4vw;
+  width: auto;
+  cursor: pointer;
+}
+
+/* Dropdown menu hidden by default */
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  top: 15vh;
+  /* Adjust depending on your nav height */
+  right: 4rem;
+  width: 15vw;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 0px;
+  padding: 1em;
+  font-family: 'Xanh Mono', monospace;
+  font-size: 2rem;
+  flex-direction: column;
+  gap: 0.5em;
+  z-index: 999;
+}
+
+.dropdown-menu a {
+  text-decoration: none;
+  color: #004406;
+  padding: 0.1em;
+  display: block;
+  border-radius: 6px;
+  transition: text-decoration 0.2s ease;
+}
+
+.dropdown-menu a:hover {
+  background: none;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+}
+
+
+/* Show dropdown when checkbox is checked */
+#hamburger-toggle:checked+label+.dropdown-menu {
+  display: flex;
+}
+
+
+/* PAGES */
+
+main {
+  width: 100%;
+}
+
+.page {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  scroll-snap-align: start;
+}
+
+.landing-image {
+  max-width: 80%;
+  height: 28vh;
+  object-fit: contain;
+}
+
+.page.page-1 {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  scroll-snap-align: start;
+  background-image: url("assets/landinga.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.page-1 h1 {
+  font-size: 5rem;
+  text-transform: uppercase;
+}
+
+.page-2 {
+  background-color: white;
+  color: black;
+}
+
+.quote-placeholder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+}
+
+.quote-image {
+  max-width: 70%;
+  height: 30vw;
+  top: 20vh;
+  align-items: center;
+  object-fit: contain;
+}
+
+.page-3 {
+  position: relative;
+  background-color: white;
+  color: black;
+}
+
+.page-3-arrow img {
+  height: 7vw;
+  position: absolute;
+  bottom: 52vh;
+  right: 17vw;
+  cursor: pointer;
+}
+
+.page-3-img {
+  max-width: 90%;
+  height: 92vh;
+  bottom: 25vh;
+  object-fit: contain;
+  display: block;
+}
+
+.page-4 {
+  height: 100vh;
+  width: 100%;
+  background-image: url("assets/before.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  overflow: hidden;
+}
+
+.overlay-img {
+  position: absolute;
+  top: 30%;
+  left: 2vw;
+  width: 25vw;
+  height: auto;
+  object-fit: contain;
+  transform: translateY(-50%);
+}
+
+/* Overlay image on the left */
+.overlay-img {
+  position: absolute;
+  top: 25%;
+  left: 3vw;
+  transform: translateY(-50%);
+  width: 18vw;
+  height: auto;
+  z-index: 1;
+}
+
+.icon-with-popup {
+  position: absolute;
+  z-index: 2;
+}
+
+.popup-icon {
+  width: 4vw;
+  height: auto;
+  cursor: pointer;
+}
+
+.popup {
+  display: none;
+  position: absolute;
+  top: -17.5vh;
+  left: -12.5vw;
+  padding: 0.5rem;
+  width: 30vw;
+  z-index: 999;
+}
+
+.popup img {
+  width: 90%;
+  height: auto;
+}
+
+.icon-with-popup:hover .popup {
+  display: block;
+}
+
+.page-4-arrow {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  z-index: 10;
+}
+
+.page-4-arrow img {
+  height: 5vw;
+  position: absolute;
+  bottom: 1vh;
+  right: 1vw;
+  cursor: pointer;
+}
+
+.page-4-arrow:hover img {
+  transform: translateY(5px);
+}
+
+.caption-container {
+  position: absolute;
+  top: 74%;
+  left: 3vw;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  z-index: 1;
+}
+
+.caption-img {
+  width: auto;
+  max-width: 30vw;
+  height: auto;
+}
+
+.background-slideshow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  z-index: -1;
+}
+
+/* Each slideshow image */
+.background-slideshow img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+}
+
+/* Visible image */
+.background-slideshow img.show {
+  opacity: 1;
+}
+
+.full-center-wrapper {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.poster-section {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 8vw;
+  text-align: center;
+  flex-wrap: wrap;
+}
+
+.poster {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 300px;
+}
+
+.poster-img {
+  width: auto;
+  height: 55vh;
+  border-radius: 0px;
+  box-shadow: 0 20px 40px rgba(255, 255, 255, 0.8);
+  border: 5px solid #004406;
+
+}
+
+.caption {
+  margin-top: 1em;
+  font-family: 'Rubik', sans-serif;
+  color: #fff;
+  font-size: 1.5rem;
+  line-height: 1.4;
+}
+
+.caption-link {
+    color: inherit; /* Keep the original color from the parent */
+    text-decoration: underline; /* Keep underline */
+    font-family: inherit;
+}
+
+.caption-link:hover {
+    opacity: 0.8; /* Optional: visual feedback on hover */
+}
+
+
+#page5-caption-overlay {
+  position: absolute;
+  top: 70vh;
+  left: 3.5vw;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: left;
+  align-items: left;
+  z-index: 1000;
+}
+
+#page5-caption-box {
+  font-size: 1.5rem;
+  color: #ffff;
+  text-align: left;
+  font-style: italic;
+  max-width: 80%;
+}
+
+
+/* FOOTER + TICKER */
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 2rem;
+  overflow: hidden;
+  background: transparent;
+  z-index: 500;
+  transition: opacity 0.5s ease;
+}
+
+footer.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ticker {
+  width: 100%;
+  overflow: hidden;
+}
+
+.ticker-track {
+  display: flex;
+  width: 200%;
+  animation: scroll-left 30s linear infinite;
+}
+
+.ticker-text {
+  white-space: nowrap;
+  font-size: 1rem;
+  padding: 0;
+  margin: 0;
+  color: #004406;
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}

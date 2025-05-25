@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Replant Our Trees</title>
+  <script src="https://cdn.jsdelivr.net/npm/p5@1.11.5/lib/p5.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.3/addons/p5.sound.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <meta charset="utf-8" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+  </style>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Xanh+Mono:ital@0;1&display=swap');
+  </style>
+  <link rel="icon" href="assets/logo.png">
+
+</head>
+
+<body>
+  <nav>
+    <div class="nav-left">
+      <a href="index.html">
+        <img src="assets/logo.png" alt="Logo" class="logo" />
+      </a>
+      <span class="project-name"></span>
+    </div>
+
+    <div class="nav-right">
+      <input type="checkbox" id="hamburger-toggle" hidden />
+
+      <label for="hamburger-toggle" class="hamburger">
+        <img src="assets/hamburger.png" alt="Menu" />
+      </label>
+
+      <div class="dropdown-menu">
+        <a href="index.html">Home</a>
+        <a href="page4.html">About</a>
+        <a href="page5.html">Replant</a>
+        <a href="page6.html">Revive</a>
+        <a href="page7.html">Restore</a>
+        <a href="page8.html">Showcase</a>
+
+      </div>
+    </div>
+  </nav>
+
+    <div id="page5-caption-overlay">
+    <div id="page5-caption-box">
+Plant trees by clicking on the flower seeds.<br>Press 'W' to grow more seeds!
+    </div>
+  </div>
+
+  <img src="assets/captionpage5.png" alt="Caption Page 4" class="overlay-img" />
+
+  <div class="caption-container">
+    <img src="assets/captionpage5b.png" alt="Caption Page 5" class="caption-img" />
+  </div>
+
+  <main>
+    <script src="page5/sketch.js"></script>
+
+  </main>
+  <div class="page-4-arrow" id="to-page-6" style="cursor: pointer;">
+    <img src="assets/arrow.png" alt="Next Section Arrow" />
+  </div>
+
+  <canvas id="trail-canvas"></canvas>
+
+  <script>
+
+    const canvas = document.getElementById("trail-canvas");
+    const ctx = canvas.getContext("2d");
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    canvas.style.position = "fixed";
+    canvas.style.top = 0;
+    canvas.style.left = 0;
+    canvas.style.pointerEvents = "none";
+    canvas.style.zIndex = 9999;
+
+    let width = canvas.width;
+    let height = canvas.height;
+
+    window.addEventListener("resize", () => {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
+    });
+
+    let trail = [];
+
+    document.addEventListener("mousemove", (e) => {
+      const x = e.clientX;
+      const y = e.clientY;
+      const timestamp = Date.now();
+      trail.push({ x, y, timestamp });
+    });
+
+    function animate() {
+      const now = Date.now();
+      // Clear canvas each frame (but NOT fill with color)
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      ctx.strokeStyle = "red";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+
+      for (let i = 0; i < trail.length - 1; i++) {
+        const p1 = trail[i];
+        const p2 = trail[i + 1];
+        const age = now - p1.timestamp;
+
+         if (age > 400) {
+        trail.splice(i, 1);
+        i--;
+        continue;
+      }
+
+      const opacity = 1 - age / 400;
+      ctx.strokeStyle = `rgba(40, 136, 33, ${opacity})`;
+      ctx.beginPath();
+      ctx.moveTo(p1.x, p1.y);
+      ctx.lineTo(p2.x, p2.y);
+      ctx.stroke();
+    }
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    document.addEventListener("click", function () {
+      const overlay = document.getElementById("page5-caption-overlay");
+      if (overlay) overlay.style.display = "none";
+    }, { once: true });
+
+    document.getElementById("to-page-6").addEventListener("click", function () {
+      window.location.href = "page6.html";
+    });
+  </script>
+</body>
+
+</html>
